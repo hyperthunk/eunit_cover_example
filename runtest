@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+NODE=eunit-cov
+HOST=`hostname -s`
+NODE_ID="$NODE@$HOST"
+rebar compile
+./run-node "$NODE" &
+sleep 1
+echo 'eunit:test(coverage_tests,[verbose]).' | erl_call -sname "$NODE_ID" -e 1>&2 > /dev/null
+sleep 1
+echo 'init:stop().' | erl_call -sname "$NODE_ID" -e 1>&2 > /dev/null

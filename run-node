@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+erl -sname $1 -noinput -pa ebin -coverage directories '["ebin"]' -s coverage start
